@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: csslint</title>
+    <title>JSDoc: Source: tasks/production/gh-pages.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,89 +17,39 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: csslint</h1>
+    <h1 class="page-title">Source: tasks/production/gh-pages.js</h1>
 
     
 
 
-
-<section>
-
-<header>
-    <h2>
-    csslint
-    </h2>
     
-</header>
-
-<article>
-    <div class="container-overview">
-    
-
-    
-        
-            <div class="description">Gulp task that uses gulp-csslint to lint</div>
-        
-
-        
-<dl class="details">
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="css-lint.js.html">tasks/development/css-lint.js</a>, <a href="css-lint.js.html#line15">line 15</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @fileOverview Uses Gulpjs to publish the app to gh-pages
+ *
+ *  @author       Scott Nath
+ *
+ *  @requires     NPM:gulp
+ *  @requires     NPM:browser-sync
+ *  @requires     /gulp/config.js
+ */
+'use strict';
+var gulp        = require('gulp');
+var print = require('gulp-print');
+var ghPages = require('gulp-gh-pages');
+var config      = require('../../config');
 
 
-        
-    
-    </div>
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+gulp.task('ghPages', function () {
+  console.log('-------------------------------------------------- BUILD: Deploy to GitHub Pages ');
+    return gulp.src('app/**/*')
+      .pipe(print())
+      .pipe(ghPages());
+});
+</code></pre>
+        </article>
+    </section>
 
 
 

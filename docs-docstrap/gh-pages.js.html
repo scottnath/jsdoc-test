@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Documentation Source: tasks/development/javascript-globbing.js</title>
+	<title>Documentation Source: tasks/production/gh-pages.js</title>
 
 	<!--[if lt IE 9]>
 	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -105,43 +105,31 @@
 					
 
 
-		<h1 class="page-title">Source: tasks/development/javascript-globbing.js</h1>
+		<h1 class="page-title">Source: tasks/production/gh-pages.js</h1>
     
     <section>
         <article>
             <pre class="sunlight-highlight-javascript ">/**
- *  @fileOverview Uses Gulpjs to glob javascript files
+ *  @fileOverview Uses Gulpjs to publish the app to gh-pages
  *
  *  @author       Scott Nath
  *
  *  @requires     NPM:gulp
- *  @requires     NPM:gulp-inject
+ *  @requires     NPM:browser-sync
  *  @requires     /gulp/config.js
  */
 'use strict';
-var gulp = require('gulp');
-var inject = require('gulp-inject');
+var gulp        = require('gulp');
 var print = require('gulp-print');
-var config = require('../../config');
+var ghPages = require('gulp-gh-pages');
+var config      = require('../../config');
 
-/**
- * Gulp task to glob javascript files into an html file
- * @module javascript-globbing
- *
- * @param   config.javascriptGlobbing.src     source file with import block area(s)
- * @param   config.javascriptGlobbing.files     list of files to be imported
- * @param   config.javascriptGlobbing.config gulp-inject configuration
- * @param   config.javascriptGlobbing.dest desitation folder
- *
- */
-gulp.task('javascript-globbing', function () {
-  console.log('-------------------------------------------------- DEVELOPMENT: Javascript Globbing');
-  var target = gulp.src(config.javascriptGlobbing.src);
-  var sources = gulp.src(config.javascriptGlobbing.files, {read: false});
 
-  return target.pipe(inject(sources,config.javascriptGlobbing.config))
-  .pipe(print())
-    .pipe(gulp.dest(config.javascriptGlobbing.dest));
+gulp.task('ghPages', function () {
+  console.log('-------------------------------------------------- BUILD: Deploy to GitHub Pages ');
+    return gulp.src('app/**/*')
+      .pipe(print())
+      .pipe(ghPages());
 });
 </pre>
         </article>
