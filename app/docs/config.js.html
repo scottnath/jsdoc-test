@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: config.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: config.js</h1>
+
+    
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ *  @fileOverview Primary Gulpjs configuration file
+ *
+ *  @author       Scott Nath
+ *
+ */
+'use strict';
+
+var production        = 'build/production';
+var srcAssets         = 'app/_assets';
+var developmentAssets = 'build/assets';
+var productionAssets  = 'build/production/assets';
+
+var development = {
+  app: 'app/',
+  appHtml: 'app/index.html',
+  appScssFile: 'app/styles/styles.scss',
+  appCssFile: 'app/styles/styles.css',
+  appCssFolder: 'app/styles/',
+  appScriptFolder: 'app/scripts/'
+};
+
+var production = {
+  build: 'build/'
+};
+
+module.exports = {
+  angularTemplatecache: {
+    config: {
+      module:'templatescache',
+      standalone:true
+    },
+    src: [
+      '!app/docs/**/**.html', // ignore documentation section
+      '!app/bower_components/**', // ignore bower-ingested
+      '!app/index.html', // ignore app index file
+      'app/**/*.html' // find all other html files
+    ],
+    dest: development.appScriptFolder
+  },
+  browsersync: {
+    development: {
+      server: {
+        baseDir: [development.app]
+      },
+      host: 'localhost',
+      port: 8001,
+      debugInfo: false,
+      open: true
+    },
+    production: {
+      server: {
+        baseDir: [production]
+      },
+      port: 9998
+    }
+  },
+  build: {
+    config: {
+      jsFilter: '**/all-*.js',
+      bowerJsFilter: '**/bower-*.js',
+      cssFilter: '**/*.css'
+    },
+    src: development.appHtml,
+    dest: production.build
+  },
+  compass: {
+    config: {
+      config_file: 'config.rb',
+      css: 'app/styles',
+      sass: 'app/styles',
+      bundle_exec: true
+    },
+    src: development.appScssFile,
+    dest: development.appCssFolder
+  },
+  cssGlobbing: {
+    config: {
+      extensions: ['.scss'],
+      ignoreFolders: ['../styles'],
+      autoReplaceBlock: {
+        onOff: true,
+        globBlockBegin: 'cssGlobbingBegin',
+        globBlockEnd: 'cssGlobbingEnd',
+        globBlockContents: '../**/*.scss'
+      }
+    },
+    src: development.appScssFile,
+    dest: development.appCssFolder
+  },
+  csslint: {
+    config: '.csslintrc',
+    src: development.appCssFile
+  },
+  development: development,
+  eslint: {
+    config: {
+      configFile: '.eslintrc'
+    },
+    src: [ // Application javascripts
+      '!app/bower_components/**', // ignore bower-ingested scripts
+      'app/**/*.js'] // main application file
+  },
+  javascriptGlobbing: {
+    config: {
+      relative: true
+    },
+    src: development.appHtml,
+    files: [ // Application javascripts
+      '!' + development.app + '/bower_components/**', // ignore bower-ingested scripts
+      '!' + development.app + '/**/*_test.js', // ignore our test scripts
+      '!' + development.app + '/karma.conf.js', // ignore our karma config
+      '!' + development.app + '/_gulp/**', // ignore all files in the app's _gulp directory
+      development.app + '/**/*.js' // main application file
+    ],
+    dest: development.app
+  },
+  sass: {
+    src:  srcAssets + '/scss/**/*.scss',
+    dest: developmentAssets + '/css',
+    options: {
+      noCache: true,
+      compass: false,
+      bundleExec: true,
+      sourcemap: true,
+      sourcemapPath: '../../_assets/scss'
+    }
+  },
+  scss: {
+    config: {
+      config: 'scsslintrc.yml',
+      'bundleExec': true
+    },
+    src: [ // SASS files
+      '!' + development.app + '/bower_components/**', // ignore any scss files in bower-ingested folders
+      '!' + development.app + '/**/_extends.scss', '!app/**/_mixins.scss', '!app/**/_variables.scss', // ignore north-inspired files, which are brought in by their parent .scss file
+      development.app + '/**/*.{sass,scss}',
+      development.app + '/styles/styles.scss' // calls app style sass file, which imports the others
+    ],
+  },
+  wiredep: {
+    config: {
+      cwd: development.app
+    },
+    bowerjson: development.app+'bower.json',
+    src: development.appHtml,
+    dest: development.app
+  }
+};
+
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="clean.html">build:clean</a></li><li></li><li><a href="module-build.html">build</a></li><li><a href="module-compass.html">compass</a></li><li><a href="module-css-globbing.html">css-globbing</a></li><li><a href="module-csslint.html">csslint</a></li><li><a href="module-eslint.html">eslint</a></li><li><a href="module-javascript-globbing.html">javascript-globbing</a></li><li><a href="module-scsslint.html">scsslint</a></li><li><a href="module-watch.html">watch</a></li><li><a href="module-watch-eslint.html">watch-eslint</a></li><li><a href="module-watch-main-html.html">watch-main-html</a></li><li><a href="module-watch-scss.html">watch-scss</a></li><li><a href="module-wiredep.html">wiredep</a></li><li><a href="json.html">json</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-alpha5</a> on Wed Feb 04 2015 16:50:32 GMT-0500 (EST)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
